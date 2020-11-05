@@ -1,3 +1,6 @@
+#ifndef RECTANGLE_HPP
+#define RECTANGLE_HPP
+
 #include "main.hpp"
 
 class Rectangle
@@ -8,7 +11,7 @@ class Rectangle
     float sizeY_;
 
 public:
-    Rectangle(float posX, float posY, float sizeX, float sizeY) : posX_(posX_), posY_(posY), sizeX_(sizeX), sizeY_(sizeY) {}
+    Rectangle(float posX, float posY, float sizeX, float sizeY) : posX_(posX), posY_(posY), sizeX_(sizeX), sizeY_(sizeY) {}
     float getPosX() { return this->posX_; }
     float getPosY() { return this->posY_; }
     float getSizeX() { return this->sizeX_; }
@@ -18,3 +21,5 @@ public:
     void setSizeX(float sizeX) { this->sizeX_ = sizeX; }
     void setSizeY(float sizeY) { this->sizeY_ = sizeY; }
 };
+
+#endif

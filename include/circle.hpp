@@ -1,4 +1,8 @@
+#ifndef CIRCLE_HPP
+#define CIRCLE_HPP
 #include "main.hpp"
+
+static const float OFF_RECTANGLE_PENALTY = 2.0f;
 
 class Circle
 {
@@ -18,4 +22,7 @@ public:
     void setCenterX(float centerX) { this->centerX_ = centerX; }
     void setCenterY(float centerY) { this->centerY_ = centerY; }
     void setFunctionValue(float functionValue) { this->functionValue_ = functionValue; }
+
 };
+
+#endif
