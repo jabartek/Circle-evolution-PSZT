@@ -14,6 +14,7 @@ class Circle
 public:
     Circle(float radius, float centerX, float centerY, float functionValue) : radius_(radius),
                                                                               centerX_(centerX), centerY_(centerY), functionValue_(functionValue) {}
+    Circle(float radius, float centerX, float centerY):radius_(radius),centerX_(centerX), centerY_(centerY){}
     float getRadius() { return this->radius_; }
     float getCenterX() { return this->centerX_; }
     float getCenterY() { return this->centerY_; }
