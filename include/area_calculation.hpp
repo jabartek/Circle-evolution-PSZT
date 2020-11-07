@@ -14,7 +14,7 @@ float area(float x0, float x1, float h, float r);
 float area(float x0, float x1, float y0, float y1, float r);
 float area(float x0, float x1, float y0, float y1, float cx, float cy, float r);
 
-float calculateFuctionValue(const Circle circle, const std::vector<Rectangle> rectangles);
+float calculateFuctionValue(Circle circle, const std::vector<Rectangle> rectangles);
 void calculateFunctionValues(const std::vector<Circle> circles, const std::vector<Rectangle> rectangles);
 
 #endif

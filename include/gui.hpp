@@ -13,7 +13,7 @@ public:
     Gui(unsigned int w, unsigned int h, std::string name = "PSZT app");
 
     static sf::RectangleShape shapeFromRectangle(Rectangle rect);
-    static sf::CircleShape shapeFromCircle(Circle circ);
+    static sf::CircleShape shapeFromCircle(Circle circ, sf::Color color = sf::Color(0, 0, 255, 200));
 
     void addRectangle(Rectangle rectangle);
     void addRectangleShape(sf::RectangleShape rectangle);

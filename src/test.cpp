@@ -30,13 +30,13 @@ void successionTest()
     circles.push_back(circle3);
     circles.push_back(circle4);
     std::cout << "Before succession" << std::endl;
-    for (Circle circle : mod.getCircles())
+    for (Circle circle : (*mod.getCircles()))
     {
         std::cout << "Circle: " << circle.getFunctionValue() << " " << circle.getCenterX() << " " << circle.getCenterY() << std::endl;
     }
     mod.succession(circles, 0.4);
     std::cout << "After succesion" << std::endl;
-    for (Circle circle : mod.getCircles())
+    for (Circle circle : (*mod.getCircles()))
     {
         std::cout << "Circle: " << circle.getFunctionValue() << " " << circle.getCenterX() << " " << circle.getCenterY() << std::endl;
     }
@@ -47,13 +47,13 @@ void mutationTest()
     EvolutionModule mod = EvolutionModule(100.0f, 100.0f, 10);
     mod.init(5.0f);
     std::cout << "Before mutation" << std::endl;
-    for (Circle circle : mod.getCircles())
+    for (Circle circle : (*mod.getCircles()))
     {
         std::cout << "Circle: " << circle.getFunctionValue() << " " << circle.getCenterX() << " " << circle.getCenterY() << " " << circle.getRadius() << std::endl;
     }
     mod.mutation(0.0, 1.0, 0.1, 0.3);
     std::cout << "After mutation" << std::endl;
-    for (Circle circle : mod.getCircles())
+    for (Circle circle : (*mod.getCircles()))
     {
         std::cout << "Circle: " << circle.getFunctionValue() << " " << circle.getCenterX() << " " << circle.getCenterY() << " " << circle.getRadius() << std::endl;
     }
@@ -64,7 +64,7 @@ void reproductionTest(){
    EvolutionModule mod = EvolutionModule(100.0f, 100.0f, 10);
    mod.init(5.0f);   
    std::cout<<"Before reproduction"<<std::endl;
-   for(Circle circle: mod.getCircles()){
+   for(Circle circle: (*mod.getCircles())){
        Circle child = mod.reproduction(true);
        std::cout<<"Child: "<< child.getFunctionValue() << " " << child.getCenterX() << " " << child.getCenterY() << " " << child.getRadius() << std::endl;
    }

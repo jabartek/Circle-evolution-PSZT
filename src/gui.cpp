@@ -8,11 +8,11 @@ sf::RectangleShape Gui::shapeFromRectangle(Rectangle rectangle)
     return ret;
 }
 
-sf::CircleShape Gui::shapeFromCircle(Circle circle)
+sf::CircleShape Gui::shapeFromCircle(Circle circle, sf::Color color)
 {
     sf::CircleShape ret(circle.getRadius());
     ret.setPosition(circle.getCenterX() - circle.getRadius(), circle.getCenterY() - circle.getRadius());
-    ret.setFillColor(sf::Color(0, 0, 255, 200));
+    ret.setFillColor(color);
     return ret;
 }
 

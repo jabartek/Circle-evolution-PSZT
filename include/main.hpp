@@ -2,7 +2,7 @@
 #define MAIN_HPP
 #include "rectangle.hpp"
 #include "circle.hpp"
-#include "area_calculation.hpp"
+// #include "area_calculation.hpp"
 #include "gui.hpp"
 #include "simulation.hpp"
 
