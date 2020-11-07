@@ -2,4 +2,9 @@ bin/
 lib/
 build/
 .s*
+<<<<<<< HEAD
 .v*
+=======
+*.obj
+.vscode/
+>>>>>>> aadb52d8b5e4b26013c34972fb1edcb63069e13b

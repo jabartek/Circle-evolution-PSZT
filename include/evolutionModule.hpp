@@ -6,6 +6,8 @@
 #include "rectangle.hpp"
 #include "randomNumberGenerator.hpp"
 
+#include <vector>
+
 const float MUTATIONSTRENGTH = 0.2f;
 const float MUTATIONLOWERBOUND = 0.0f;
 const float MUTATIONUPPERBOUND = 1.0f;

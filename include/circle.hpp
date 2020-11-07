@@ -14,11 +14,10 @@ class Circle
 public:
     Circle(float radius, float centerX, float centerY, float functionValue) : radius_(radius),
                                                                               centerX_(centerX), centerY_(centerY), functionValue_(functionValue) {}
-    Circle(float radius, float centerX, float centerY):radius_(radius),centerX_(centerX), centerY_(centerY){}
-    float getRadius() { return this->radius_; }
-    float getCenterX() { return this->centerX_; }
-    float getCenterY() { return this->centerY_; }
-    float getFunctionValue() { return this->functionValue_; }
+    const float getRadius() { return this->radius_; }
+    const float getCenterX() { return this->centerX_; }
+    const float getCenterY() { return this->centerY_; }
+    const float getFunctionValue() { return this->functionValue_; }
     void setRadius(float radius) { this->radius_ = radius; }
     void setCenterX(float centerX) { this->centerX_ = centerX; }
     void setCenterY(float centerY) { this->centerY_ = centerY; }
