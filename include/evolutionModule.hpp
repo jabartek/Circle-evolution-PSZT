@@ -1,7 +1,8 @@
 #ifndef EVOLUTION_MODULE
 #define EVOLUTION_MODULE
-
-#include "main.hpp"
+#include <cstdlib>
+#include <iostream>
+#include <vector>
 #include "circle.hpp"
 #include "rectangle.hpp"
 #include "randomNumberGenerator.hpp"
@@ -15,9 +16,9 @@ const float MUTATIONTHRESHHOLD = 0.35f;
 
 class EvolutionModule
 {
-    int populationStartSize;
-    float windowWidth;
-    float windowHeight;
+    int populationStartSize_;
+    float windowWidth_;
+    float windowHeight_;
     std::vector<Circle> circles_;
     std::vector<Rectangle> rectangles_;
 
@@ -31,9 +32,11 @@ class EvolutionModule
     float area(float x0, float x1, float y0, float y1, float cx, float cy, float r);
 
 public:
+    std::vector<Circle> getCircles();
+    EvolutionModule(float width, float height, int population):windowWidth_(width), windowHeight_(height),populationStartSize_(population){};
     void init(float maximumRadius);
     void mutation(float mutationLowerBound, float mutationUpperBound, float mutationStrength, float mutationThreshHold);
-    Circle reproduction();
+    Circle reproduction(bool test);
     void succession(std::vector<Circle> childrenPopulation, float elitePercentage);
     float calculateFuctionValue(const Circle circle, const std::vector<Rectangle> rectangles);
     void calculateFunctionValues(const std::vector<Circle> circles, const std::vector<Rectangle> rectangles);
