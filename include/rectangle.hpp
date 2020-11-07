@@ -1,8 +1,6 @@
 #ifndef RECTANGLE_HPP
 #define RECTANGLE_HPP
 
-#include "main.hpp"
-
 class Rectangle
 {
     float posX_;

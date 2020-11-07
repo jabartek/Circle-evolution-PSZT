@@ -6,7 +6,9 @@
 /////////////////////////////////////////////////////////
 #ifndef RANDOMNUMBERGENERATOR
 #define RANDOMNUMBERGENERATOR
-#include "main.hpp"
+#include <random>
+
+
 template <typename Numeric, typename RealOnlyNumeric = float>
 class RandomNumberGenerator {
 private:
