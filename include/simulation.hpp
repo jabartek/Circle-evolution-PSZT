@@ -10,36 +10,39 @@
 #include "circle.hpp"
 #include "gui.hpp"
 #include "evolutionModule.hpp"
-
+#include "writerModule.hpp"
 
 enum circle_types{
-    MEDIAN, MEAN, BEST, ALL
+    WORST,MEDIAN, MEAN, BEST, ALL
 };
 
 class Simulation{
-    Gui gui_;
-    unsigned int populationSize;
+
+    bool pictures;
+    unsigned int populationSize_;
+    unsigned int numberOfIterations_;
     std::shared_ptr<std::vector<Rectangle>> rectangles_;
     std::shared_ptr<std::vector<Circle>> circles_;
     EvolutionModule evolutionModule_;
+    WriterModule writerModule_;
+    Gui gui_;
+
 public:
     Simulation(unsigned int windowSizeX, unsigned int windowSizeY);
-    Simulation(unsigned int windowSizeX, unsigned int windowSizeY, unsigned int);
-    Circle meanCircle();
-    Circle medianCircle();
-    Circle bestCircle();
+    Simulation(unsigned int windowSizeX, unsigned int windowSizeY, unsigned int populationSize, unsigned int numberOfIterations);
     Gui * getGui();
+    void iteration();
+    void run();
     
     // void setCircles(const std::vector<Circle> circles);
     // void setRectangles(const std::vector<Rectangle> rectangles);
 
     void addRectangle(Rectangle rectangle);
-
     void drawToScreen(circle_types circleType);
-    void drawToPic(circle_types circleType, std::string filename);
+    void saveResults(circle_types circleType, std::string filename);
+    void setPathForWriterModule(std::string path);
+    void setDelimiterForWriterModule(std::string delimiter);
     
-
-    EvolutionModule * getEvolutionModule();
 };
 
 #endif

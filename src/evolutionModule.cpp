@@ -1,8 +1,8 @@
 #include "evolutionModule.hpp"
 
-EvolutionModule::EvolutionModule(float windowWidth, float windowHeight) : windowWidth(windowWidth), windowHeight(windowHeight){};
+EvolutionModule::EvolutionModule(float windowWidth, float windowHeight) : windowWidth_(windowWidth), windowHeight_(windowHeight){};
 
-EvolutionModule::EvolutionModule(float windowWidth, float windowHeight, unsigned int populationStartSize) : windowWidth(windowWidth), windowHeight(windowHeight), populationStartSize(populationStartSize){};
+EvolutionModule::EvolutionModule(float windowWidth, float windowHeight, unsigned int populationStartSize) : windowWidth_(windowWidth), windowHeight_(windowHeight), populationStartSize_(populationStartSize){};
 
 void EvolutionModule::setVectors(std::shared_ptr<std::vector<Circle>> circles, std::shared_ptr<std::vector<Rectangle>> rectangles)
 {
@@ -13,11 +13,11 @@ void EvolutionModule::setVectors(std::shared_ptr<std::vector<Circle>> circles, s
 void EvolutionModule::init(float maximumRadius)
 {
     RandomNumberGenerator<float> gen(0.0f, maximumRadius);
-    for (int i = 0; i < populationStartSize; i++)
+    for (int i = 0; i < populationStartSize_; i++)
     {
         float radius = gen.get(0.0f, maximumRadius);
-        float centerX = gen.get(0.0f, windowWidth);
-        float centerY = gen.get(0.0f, windowHeight);
+        float centerX = gen.get(0.0f, windowWidth_);
+        float centerY = gen.get(0.0f, windowHeight_);
         circles_->emplace_back(Circle(radius, centerX, centerY));
     }
 }
@@ -30,9 +30,9 @@ void EvolutionModule::mutation(float mutationLowerBound, float mutationUpperBoun
         if (gen.get() > mutationThreshHold)
             circle.setRadius(gen.getNormal(circle.getRadius(), circle.getRadius() * mutationStrength));
         if (gen.get() > mutationThreshHold)
-            circle.setCenterX(gen.getNormal(circle.getCenterX(), circle.getCenterX() * mutationStrength));
+            circle.setCenterX(gen.getNormal(circle.getCenterX(), windowWidth_ * mutationStrength));
         if (gen.get() > mutationThreshHold)
-            circle.setCenterY(gen.getNormal(circle.getCenterY(), circle.getCenterY() * mutationStrength));
+            circle.setCenterY(gen.getNormal(circle.getCenterY(), windowHeight_ * mutationStrength));
     }
 }
 Circle EvolutionModule::reproduction(bool test)
@@ -87,13 +87,13 @@ bool EvolutionModule::comparator(Circle &circle1, Circle &circle2)
 
 void EvolutionModule::setWindowSize(float width, float height)
 {
-    windowWidth = width;
-    windowHeight = height;
+    windowWidth_ = width;
+    windowHeight_ = height;
 };
 
 void EvolutionModule::setPopulationStartSize(unsigned int startSize)
 {
-    populationStartSize = startSize;
+    populationStartSize_ = startSize;
 };
 
 Circle EvolutionModule::meanCircle()
@@ -112,6 +112,18 @@ Circle EvolutionModule::meanCircle()
     totalCenterY /= circles_->size();
     return Circle(totalRadius, totalCenterX, totalCenterY, 0.0f);
 };
+
+Circle EvolutionModule::bestCircle(){
+    std::sort(circles_->begin(),circles_->end(),&comparator);
+    return (*circles_)[0];
+}
+
+Circle EvolutionModule::worstCircle(){
+    std::sort(circles_->begin(),circles_->end(),&comparator);
+    return (*circles_)[(*circles_).size()-1];
+}
+
+
 
 Circle EvolutionModule::medianCircle()
 {

@@ -1,55 +1,103 @@
 #include "main.hpp"
+#include <string>
 
-int main()
+int main(int argc, char* argv[])
 {
-    std::cout << "Witaj PSZTY!" << std::endl;
-
+    unsigned int posX;
+    unsigned int posY;
+    unsigned int sizeX;
+    unsigned int sizeY;
     std::vector<Rectangle> rectangles;
-    rectangles.emplace_back(Rectangle(650, 650, 300, 300));
-    // rectangles.emplace_back(Rectangle(50, 50, 300, 900));
-    // rectangles.emplace_back(Rectangle(450, 50, 200, 200));
-    // rectangles.emplace_back(Rectangle(400, 400, 550, 550));
+    unsigned int windowWidth;
+    unsigned int windowHeight;
+    unsigned int populationSize;
+    unsigned int numberOfIterations;
+    bool toPictures;
+    std::string pathToFile;
+    std::string delimiter;
+    std::string ans;
 
-    Simulation sim(1000, 1000, 100);
+    if( argv[1] != "auto"){
+    std::cout << "Witaj PSZTY!" << std::endl;
+    std::cout<<"----------------------------------------------------"<<std::endl;
+    std::cout<< "Inicjalizacja zmiennych prostokątów"<<std::endl;
+    std::cout<<"----------------------------------------------------"<<std::endl;
+    std::cout<<"Liczba prostokątów"<<std::endl;
+    unsigned int rectangleNum;
+    std::cin>>rectangleNum;
+    for (int i=0; i<rectangleNum; i++){
 
+    std::cout<<"Podaj parametry prostokąta (liczby całkowite):"<<std::endl;
+    std::cout<<"Współrzędna X lewego górnego rogu:"<<std::endl;
+    std::cin>>posX;
+    std::cout<<"Współrzędna Y lewego górnego rogu:"<<std::endl;
+    std::cin>>posY;
+    std::cout<<"Szerokość prostokąta:"<<std::endl;
+    std::cin>>sizeX;
+    std::cout<<"Długość prostokąta:"<<std::endl;
+    std::cin>>sizeY;
+    rectangles.emplace_back(Rectangle(posX, posY, sizeX, sizeY));
+    }
+    std::cout<<"----------------------------------------------------"<<std::endl;
+    std::cout<< " KONIEC inicjalizacji zmiennych prostokątów"<<std::endl;
+    std::cout<<"----------------------------------------------------"<<std::endl;
+
+    std::cout<<"----------------------------------------------------"<<std::endl;
+    std::cout<< "Inicjalizacja zmiennych symulacji"<<std::endl;
+    std::cout<<"----------------------------------------------------"<<std::endl;
+
+
+    std::cout<<"Podaj parametry symulacji (liczby całkowite):"<<std::endl;
+    std::cout<<"Szerokość okna symulacji:"<<std::endl;
+    std::cin>>windowWidth;
+    std::cout<<"Wysokość okna symulacji:"<<std::endl;
+    std::cin>>windowHeight;
+    std::cout<<"Wielkość populacji: " <<std::endl;
+    std::cin>>populationSize;
+    std::cout<<"Ilość iteracji: " <<std::endl;
+
+    std::cout<<"----------------------------------------------------"<<std::endl;
+    std::cout<< " KONIEC inicjalizacji zmiennych symulacji"<<std::endl;
+    std::cout<<"----------------------------------------------------"<<std::endl;
+
+    std::cout<<"----------------------------------------------------"<<std::endl;
+    std::cout<< "Inicjalizacja zmiennych zapisywania wyników"<<std::endl;
+    std::cout<<"----------------------------------------------------"<<std::endl;
+    std::cout<<"Podaj ścieżkę do pliku:"<<std::endl;
+    std::cin>> pathToFile;
+    std::cout<<"Podaj separator w pliku: "<<std::endl;
+    std::cin>> delimiter;
+    std::cout<<"Czy zapisywać obrazki do pliku? [T\\N]" <<std::endl;
+    std::cin>>ans;
+    std::transform(ans.begin(), ans.end(),ans.begin(), ::toupper);
+    if(ans == "T"){
+        toPictures = true;
+    }else{
+        toPictures = false;
+    }
+
+    } else{
+    posX=650;
+    posY=650;
+    sizeX= 300;
+    sizeY=300;
+    std::vector<Rectangle> rectangles;
+    rectangles.emplace_back(Rectangle(posX,posY,sizeX,sizeY));
+    windowWidth = 1000;
+    windowHeight = 1000;
+    populationSize = 100;
+    numberOfIterations = 300;
+    toPictures = false;
+    }
+
+    Simulation sim(windowWidth, windowHeight, populationSize, numberOfIterations);
     for (auto v : rectangles)
     {
         sim.addRectangle(v);
     }
-    int i = 0;
-    sf::Clock clock;
-    while (sim.getGui()->isOpen() && i < 1000)
-    {
-        sim.getEvolutionModule()->calculateFunctionValues();
-        sim.drawToScreen(ALL);
-        sf::sleep(sf::Time(sf::milliseconds(30)));
-        sim.drawToScreen(MEAN);
-        sf::sleep(sf::Time(sf::milliseconds(30)));
-        sim.drawToScreen(MEDIAN);
-        sf::sleep(sf::Time(sf::milliseconds(30)));
-        sim.drawToScreen(BEST);
-        sf::sleep(sf::Time(sf::milliseconds(100)));
-        
-        std::vector<Circle> children;
 
-        for(int i =0; i< 300; ++i){
-            children.emplace_back(sim.getEvolutionModule()->reproduction());
-        }
+    sim.run();
 
-        sim.getEvolutionModule()->calculateFunctionValues(children);
-        sim.getEvolutionModule()->mutation(0.0f, 1.0f, 0.2f, 0.80f);
-        sim.getEvolutionModule()->succession(children, .2f);
-        
-        sf::Event event;
-        while (sim.getGui()->pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                sim.getGui()->close();
-        }
-    }
 
-    auto time1 = clock.getElapsedTime();
-    std::cout << "\n"
-              << time1.asSeconds();
     return 0;
 }

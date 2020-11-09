@@ -15,9 +15,9 @@ const float MUTATIONTHRESHHOLD = 0.35f;
 
 class EvolutionModule
 {
-    unsigned int populationStartSize;
-    float windowWidth;
-    float windowHeight;
+    unsigned int populationStartSize_;
+    float windowWidth_;
+    float windowHeight_;
     std::shared_ptr<std::vector<Circle>> circles_;
     std::shared_ptr<std::vector<Rectangle>> rectangles_;
 
@@ -46,6 +46,8 @@ public:
     
     Circle meanCircle();
     Circle medianCircle();
+    Circle bestCircle();
+    Circle worstCircle();
 
     inline std::shared_ptr<std::vector<Circle>> getCircles(){return circles_;};
 };
