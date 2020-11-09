@@ -20,26 +20,26 @@ int main(int argc, char* argv[])
     if( argv[1] != "auto"){
     std::cout << "Witaj PSZTY!" << std::endl;
     std::cout<<"----------------------------------------------------"<<std::endl;
-    std::cout<< "Inicjalizacja zmiennych prostokątów"<<std::endl;
+    std::cout<< "Inicjalizacja zmiennych prostokatow"<<std::endl;
     std::cout<<"----------------------------------------------------"<<std::endl;
-    std::cout<<"Liczba prostokątów"<<std::endl;
+    std::cout<<"Liczba prostokatow"<<std::endl;
     unsigned int rectangleNum;
     std::cin>>rectangleNum;
     for (int i=0; i<rectangleNum; i++){
 
-    std::cout<<"Podaj parametry prostokąta (liczby całkowite):"<<std::endl;
-    std::cout<<"Współrzędna X lewego górnego rogu:"<<std::endl;
+    std::cout<<"Podaj parametry prostokata (liczby calkowite):"<<std::endl;
+    std::cout<<"Wspolrzedna X lewego gornego rogu:"<<std::endl;
     std::cin>>posX;
-    std::cout<<"Współrzędna Y lewego górnego rogu:"<<std::endl;
+    std::cout<<"Wspolrzedna Y lewego gornego rogu:"<<std::endl;
     std::cin>>posY;
-    std::cout<<"Szerokość prostokąta:"<<std::endl;
+    std::cout<<"Szerokosc prostokata:"<<std::endl;
     std::cin>>sizeX;
-    std::cout<<"Długość prostokąta:"<<std::endl;
+    std::cout<<"Dlugosc prostoksta:"<<std::endl;
     std::cin>>sizeY;
     rectangles.emplace_back(Rectangle(posX, posY, sizeX, sizeY));
     }
     std::cout<<"----------------------------------------------------"<<std::endl;
-    std::cout<< " KONIEC inicjalizacji zmiennych prostokątów"<<std::endl;
+    std::cout<< " KONIEC inicjalizacji zmiennych prostokatow"<<std::endl;
     std::cout<<"----------------------------------------------------"<<std::endl;
 
     std::cout<<"----------------------------------------------------"<<std::endl;
@@ -47,27 +47,28 @@ int main(int argc, char* argv[])
     std::cout<<"----------------------------------------------------"<<std::endl;
 
 
-    std::cout<<"Podaj parametry symulacji (liczby całkowite):"<<std::endl;
-    std::cout<<"Szerokość okna symulacji:"<<std::endl;
+    std::cout<<"Podaj parametry symulacji (liczby calkowite):"<<std::endl;
+    std::cout<<"Szerokosc okna symulacji:"<<std::endl;
     std::cin>>windowWidth;
-    std::cout<<"Wysokość okna symulacji:"<<std::endl;
+    std::cout<<"Wysokosc okna symulacji:"<<std::endl;
     std::cin>>windowHeight;
-    std::cout<<"Wielkość populacji: " <<std::endl;
+    std::cout<<"Wielkosc populacji: " <<std::endl;
     std::cin>>populationSize;
-    std::cout<<"Ilość iteracji: " <<std::endl;
+    std::cout<<"Ilosc iteracji: " <<std::endl;
+    std::cin>>numberOfIterations;
 
     std::cout<<"----------------------------------------------------"<<std::endl;
     std::cout<< " KONIEC inicjalizacji zmiennych symulacji"<<std::endl;
     std::cout<<"----------------------------------------------------"<<std::endl;
 
     std::cout<<"----------------------------------------------------"<<std::endl;
-    std::cout<< "Inicjalizacja zmiennych zapisywania wyników"<<std::endl;
+    std::cout<< "Inicjalizacja zmiennych zapisywania wynikow"<<std::endl;
     std::cout<<"----------------------------------------------------"<<std::endl;
-    std::cout<<"Podaj ścieżkę do pliku:"<<std::endl;
+    std::cout<<"Podaj sciezke do pliku:"<<std::endl;
     std::cin>> pathToFile;
     std::cout<<"Podaj separator w pliku: "<<std::endl;
     std::cin>> delimiter;
-    std::cout<<"Czy zapisywać obrazki do pliku? [T\\N]" <<std::endl;
+    std::cout<<"Czy zapisywac obrazki do pliku? [T\\N]" <<std::endl;
     std::cin>>ans;
     std::transform(ans.begin(), ans.end(),ans.begin(), ::toupper);
     if(ans == "T"){

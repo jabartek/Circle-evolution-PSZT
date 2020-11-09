@@ -123,8 +123,6 @@ Circle EvolutionModule::worstCircle(){
     return (*circles_)[(*circles_).size()-1];
 }
 
-
-
 Circle EvolutionModule::medianCircle()
 {
     float medianRadius = 0;
