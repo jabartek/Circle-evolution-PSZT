@@ -3,10 +3,10 @@
 
 int main(int argc, char* argv[])
 {
-    unsigned int posX;
-    unsigned int posY;
-    unsigned int sizeX;
-    unsigned int sizeY;
+    float posX;
+    float posY;
+    float sizeX;
+    float sizeY;
     std::vector<Rectangle> rectangles;
     unsigned int windowWidth;
     unsigned int windowHeight;
@@ -66,8 +66,8 @@ int main(int argc, char* argv[])
     std::cout<<"----------------------------------------------------"<<std::endl;
     std::cout<<"Podaj sciezke do pliku:"<<std::endl;
     std::cin>> pathToFile;
-    std::cout<<"Podaj separator w pliku: "<<std::endl;
-    std::cin>> delimiter;
+    // std::cout<<"Podaj separator w pliku: "<<std::endl;
+    // std::cin>> delimiter;
     std::cout<<"Czy zapisywac obrazki do pliku? [T\\N]" <<std::endl;
     std::cin>>ans;
     std::transform(ans.begin(), ans.end(),ans.begin(), ::toupper);
@@ -97,6 +97,9 @@ int main(int argc, char* argv[])
         sim.addRectangle(v);
     }
 
+    sim.setPathForWriterModule(pathToFile);
+    sim.setDelimiterForWriterModule("\t");
+    sim.setPictures(toPictures);
     sim.run();
 
 

@@ -29,7 +29,6 @@ class EvolutionModule
     float area(float x0, float x1, float h, float r);
     float area(float x0, float x1, float y0, float y1, float r);
     float area(float x0, float x1, float y0, float y1, float cx, float cy, float r);
-    float calculateFuctionValue(Circle * circle);
 
 public:
     EvolutionModule(float windowWidth, float windowHeight);
@@ -43,6 +42,8 @@ public:
     void calculateFunctionValues();
     void calculateFunctionValues(std::vector<Circle> circles);
     void setPopulationStartSize(unsigned int startSize);
+
+    float calculateFuctionValue(Circle * circle);
     
     Circle meanCircle();
     Circle medianCircle();
