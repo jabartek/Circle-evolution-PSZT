@@ -2,7 +2,9 @@
 
 EvolutionModule::EvolutionModule(float windowWidth, float windowHeight) : windowWidth_(windowWidth), windowHeight_(windowHeight){};
 
-EvolutionModule::EvolutionModule(float windowWidth, float windowHeight, unsigned int populationStartSize) : windowWidth_(windowWidth), windowHeight_(windowHeight), populationStartSize_(populationStartSize){};
+EvolutionModule::EvolutionModule(float windowWidth, float windowHeight, unsigned int populationStartSize, float mutationStrength) 
+                : windowWidth_(windowWidth), windowHeight_(windowHeight), populationStartSize_(populationStartSize),
+                mutationStrength_(mutationStrength){};
 
 void EvolutionModule::setVectors(std::shared_ptr<std::vector<Circle>> circles, std::shared_ptr<std::vector<Rectangle>> rectangles)
 {
@@ -10,29 +12,29 @@ void EvolutionModule::setVectors(std::shared_ptr<std::vector<Circle>> circles, s
     rectangles_ = rectangles;
 }
 
-void EvolutionModule::init(float maximumRadius)
+void EvolutionModule::init(float minX, float maxX, float minY, float maxY,float maximumRadius)
 {
     RandomNumberGenerator<float> gen(0.0f, maximumRadius);
     for (int i = 0; i < populationStartSize_; i++)
     {
         float radius = gen.get(0.0f, maximumRadius);
-        float centerX = gen.get(0.0f, windowWidth_);
-        float centerY = gen.get(0.0f, windowHeight_);
+        float centerX = gen.get(minX, maxX);
+        float centerY = gen.get(minY, maxY);
         circles_->emplace_back(Circle(radius, centerX, centerY));
     }
 }
 
-void EvolutionModule::mutation(float mutationLowerBound, float mutationUpperBound, float mutationStrength, float mutationThreshHold)
+void EvolutionModule::mutation(float mutationLowerBound, float mutationUpperBound)
 {
     RandomNumberGenerator<float> gen(mutationLowerBound, mutationUpperBound);
     for (Circle &circle : *circles_)
     {
-        if (gen.get() > mutationThreshHold)
-            circle.setRadius(gen.getNormal(circle.getRadius(), circle.getRadius() * mutationStrength));
-        if (gen.get() > mutationThreshHold)
-            circle.setCenterX(gen.getNormal(circle.getCenterX(), windowWidth_ * mutationStrength));
-        if (gen.get() > mutationThreshHold)
-            circle.setCenterY(gen.getNormal(circle.getCenterY(), windowHeight_ * mutationStrength));
+        if (gen.get() < mutationThreshhold_)
+            circle.setRadius(gen.getNormal(circle.getRadius(), circle.getRadius() * mutationStrength_));
+        if (gen.get() < mutationThreshhold_)
+            circle.setCenterX(gen.getNormal(circle.getCenterX(), windowWidth_ * mutationStrength_));
+        if (gen.get() < mutationThreshhold_)
+            circle.setCenterY(gen.getNormal(circle.getCenterY(), windowHeight_ * mutationStrength_));
     }
 }
 Circle EvolutionModule::reproduction(bool test)
@@ -66,9 +68,9 @@ Circle EvolutionModule::reproductionTournament()
     return knight2;
 }
 
-void EvolutionModule::succession(std::vector<Circle> childrenPopulation, float elitePercentage)
+void EvolutionModule::succession(std::vector<Circle> childrenPopulation)
 {
-    int eliteSize = std::floor(elitePercentage * circles_->size());
+    int eliteSize = std::floor(eliteSize * circles_->size());
     std::sort(childrenPopulation.begin(), childrenPopulation.end(), &comparator);
     std::sort(circles_->begin(), circles_->end(), &comparator);
     auto firstChild = childrenPopulation.begin();
@@ -198,10 +200,17 @@ float EvolutionModule::calculateFuctionValue(Circle *circle)
     Rectangle proxy(circle->getCenterX() - circle->getRadius() * 1.25f, circle->getCenterY() - circle->getRadius() * 1.25f, circle->getRadius() * 2.5f, circle->getRadius() * 2.5f);
     float offRec = calculateOverlap(*circle, proxy) - totalOverlap;
     float result = totalOverlap - offRec * OFF_RECTANGLE_PENALTY;
-    // std::cout << "\n"
-    //           << result << "\n";
     circle->setFunctionValue(result);
     return result;
+}
+
+
+void EvolutionModule::setMutationThreshhold(float mutationThreshhold){
+    this->mutationThreshhold_= mutationThreshhold;
+}
+
+void EvolutionModule::setEliteSize(float eliteSize){
+    this->eliteSize_ = eliteSize;
 }
 
 float EvolutionModule::calculateOverlap(Circle circle, Rectangle rectangle)

@@ -23,7 +23,7 @@ private:
     distributionType distribution_;
     std::normal_distribution<RealOnlyNumeric> normalDistribution_;
 public:
-    RandomNumberGenerator(Numeric min, Numeric max, RealOnlyNumeric mean = 5.0, RealOnlyNumeric stddev = 2.0){
+    RandomNumberGenerator(Numeric min=0.0f, Numeric max=1.0f, RealOnlyNumeric mean = 5.0, RealOnlyNumeric stddev = 2.0){
         std::random_device rd;
         this->generator_ = std::mt19937_64(rd());
         this->distribution_ = distributionType(min, max);

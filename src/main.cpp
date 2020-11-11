@@ -1,17 +1,29 @@
 #include "main.hpp"
 #include <string>
 
-int main(int argc, char* argv[])
+int main(int argc, char** argv)
 {
+    //RECTANGLES PARAMETERS
     float posX;
     float posY;
     float sizeX;
     float sizeY;
     std::vector<Rectangle> rectangles;
+    //SIMULATION PARAMETERS
     unsigned int windowWidth;
     unsigned int windowHeight;
     unsigned int populationSize;
     unsigned int numberOfIterations;
+    float mutationStrength;
+    float mutationThreshold;
+    float eliteSize;
+    //SPAWNING CIRCLES PARAMETERS
+    float maximumRadius;
+    float minX;
+    float maxX;
+    float minY;
+    float maxY;
+    //SAVING PARAMETERS
     bool toPictures;
     std::string pathToFile;
     std::string delimiter;
@@ -34,12 +46,31 @@ int main(int argc, char* argv[])
     std::cin>>posY;
     std::cout<<"Szerokosc prostokata:"<<std::endl;
     std::cin>>sizeX;
-    std::cout<<"Dlugosc prostoksta:"<<std::endl;
+    std::cout<<"Dlugosc prostokata:"<<std::endl;
     std::cin>>sizeY;
     rectangles.emplace_back(Rectangle(posX, posY, sizeX, sizeY));
     }
+    
     std::cout<<"----------------------------------------------------"<<std::endl;
     std::cout<< " KONIEC inicjalizacji zmiennych prostokatow"<<std::endl;
+    std::cout<<"----------------------------------------------------"<<std::endl;
+
+    std::cout<<"----------------------------------------------------"<<std::endl;
+    std::cout<< "Inicjalizacja zmiennych kolek"<<std::endl;
+    std::cout<<"----------------------------------------------------"<<std::endl;
+    std::cout<<"Podaj maksymalny poczatkowy promien kola"<<std::endl;
+    std::cin>>maximumRadius;
+    std::cout<<"Podaj wymiary obszaru poczatkowego kolek:"<<std::endl;
+    std::cout<<"Minimalny rozmiar X: " <<std::endl;
+    std::cin>>minX;
+    std::cout<<"Maksymalny rozmiar X: " <<std::endl;
+    std::cin>>maxX;
+    std::cout<<"Minimalny rozmiar Y: " <<std::endl;
+    std::cin>>minY;
+    std::cout<<"Maksymalny rozmiar Y: " <<std::endl;
+    std::cin>>maxY;
+    std::cout<<"----------------------------------------------------"<<std::endl;
+    std::cout<< "KONIEC inicjalizacji zmiennych kółek"<<std::endl;
     std::cout<<"----------------------------------------------------"<<std::endl;
 
     std::cout<<"----------------------------------------------------"<<std::endl;
@@ -56,6 +87,13 @@ int main(int argc, char* argv[])
     std::cin>>populationSize;
     std::cout<<"Ilosc iteracji: " <<std::endl;
     std::cin>>numberOfIterations;
+    std::cout<<"Sila mutacji: (parametr odchylenia standardowego w przypadku rozkladu normalnego - liczba zmiennoprzecinkowa):"<<std::endl;
+    std::cin>>mutationStrength;
+    std::cout<<"Jak duzo osobnikow (srednio) ma mutowac: (liczba z zakresu 0.0-1.0)"<<std::endl;
+    std::cin>> mutationThreshold;
+    std::cout<<"Jaki procent najgorszych osobnikow z populacji rodzicielskiej ma byc zastepowane przez najlepsze osobniki z populacji potomnej: "<<std::endl;
+    std::cout<<"liczba z zakresu (0.0 - 1.0)"<<std::endl;
+    std::cin>> eliteSize;
 
     std::cout<<"----------------------------------------------------"<<std::endl;
     std::cout<< " KONIEC inicjalizacji zmiennych symulacji"<<std::endl;
@@ -88,15 +126,25 @@ int main(int argc, char* argv[])
     windowHeight = 1000;
     populationSize = 100;
     numberOfIterations = 300;
+    mutationStrength = 0.3;
+    mutationThreshold=0.3;
+    eliteSize= 0.2;
+    maximumRadius = 100.0f;
+    minX = 0.0;
+    maxX= windowWidth;
+    minY = 0.0;
+    maxY = windowHeight;
     toPictures = false;
     }
 
-    Simulation sim(windowWidth, windowHeight, populationSize, numberOfIterations);
+    Simulation sim(windowWidth, windowHeight, populationSize, mutationStrength, numberOfIterations,
+                    maximumRadius,minX, maxX,  minY, maxY);
     for (auto v : rectangles)
     {
         sim.addRectangle(v);
     }
-
+    sim.setMutationThreshholdForEvolutionModule(mutationThreshold);
+    sim.setEliteSizeForEvolutionModule(eliteSize);
     sim.setPathForWriterModule(pathToFile);
     sim.setDelimiterForWriterModule("\t");
     sim.setPictures(toPictures);

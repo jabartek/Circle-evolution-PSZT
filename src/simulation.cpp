@@ -9,16 +9,19 @@ Simulation::Simulation(unsigned int windowSizeX, unsigned int windowSizeY) : gui
 };
 
 Simulation::Simulation(unsigned int windowSizeX, unsigned int windowSizeY,
-                       unsigned int populationSize, unsigned int numberOfIterations) : gui_(windowSizeX, windowSizeY),
-                                                                                       populationSize_(populationSize),
-                                                                                       evolutionModule_(windowSizeX, windowSizeY, populationSize),
-                                                                                       numberOfIterations_(numberOfIterations)
+                       unsigned int populationSize,float mutationStrength, 
+                       unsigned int numberOfIterations,
+                       float maximumRadius, float minX, float maxX, float minY, float maxY) 
+                       : gui_(windowSizeX, windowSizeY),
+                        populationSize_(populationSize),
+                        evolutionModule_(windowSizeX, windowSizeY, populationSize,mutationStrength),
+                        numberOfIterations_(numberOfIterations)
 
 {
     circles_ = std::shared_ptr<std::vector<Circle>>(new std::vector<Circle>);
     rectangles_ = std::shared_ptr<std::vector<Rectangle>>(new std::vector<Rectangle>);
     evolutionModule_.setVectors(circles_, rectangles_);
-    evolutionModule_.init(100.0f); // <-- THIS IS NOT FINAL (DEBUG)
+    evolutionModule_.init(minX, maxX, minY, maxY,maximumRadius);
 };
 
 void Simulation::run()
@@ -201,8 +204,8 @@ void Simulation::iteration()
     }
 
     evolutionModule_.calculateFunctionValues(children);
-    evolutionModule_.mutation(0.0f, 1.0f, 0.2f, 0.80f);
-    evolutionModule_.succession(children, .2f);
+    evolutionModule_.mutation(0.0f, 1.0f);
+    evolutionModule_.succession(children);
 }
 
 void Simulation::setDelimiterForWriterModule(std::string delimiter)
@@ -213,4 +216,12 @@ void Simulation::setDelimiterForWriterModule(std::string delimiter)
 void Simulation::setPathForWriterModule(std::string path)
 {
     writerModule_.setPathToFile(path);
+}
+
+void Simulation::setEliteSizeForEvolutionModule(float eliteSize){
+    evolutionModule_.setEliteSize(eliteSize);
+}
+
+void Simulation::setMutationThreshholdForEvolutionModule(float mutationThreshhold){
+    evolutionModule_.setMutationThreshhold(mutationThreshhold);
 }

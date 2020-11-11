@@ -18,6 +18,9 @@ class EvolutionModule
     unsigned int populationStartSize_;
     float windowWidth_;
     float windowHeight_;
+    float mutationStrength_;
+    float eliteSize_;
+    float mutationThreshhold_;
     std::shared_ptr<std::vector<Circle>> circles_;
     std::shared_ptr<std::vector<Rectangle>> rectangles_;
 
@@ -32,17 +35,18 @@ class EvolutionModule
 
 public:
     EvolutionModule(float windowWidth, float windowHeight);
-    EvolutionModule(float windowWidth, float windowHeight, unsigned int populationStartSize);
+    EvolutionModule(float windowWidth, float windowHeight, unsigned int populationStartSize, float mutationStrength);
     void setWindowSize(float width, float height);
     void setVectors(std::shared_ptr<std::vector<Circle>> circles, std::shared_ptr<std::vector<Rectangle>> rectangles);
-    void init(float maximumRadius);
-    void mutation(float mutationLowerBound, float mutationUpperBound, float mutationStrength, float mutationThreshHold);
+    void init(float minX, float maxX, float minY, float maxY, float maximumRadius);
+    void mutation(float mutationLowerBound, float mutationUpperBound);
     Circle reproduction(bool test = false);
-    void succession(std::vector<Circle> childrenPopulation, float elitePercentage);
+    void succession(std::vector<Circle> childrenPopulation);
     void calculateFunctionValues();
     void calculateFunctionValues(std::vector<Circle> circles);
     void setPopulationStartSize(unsigned int startSize);
-
+    void setEliteSize(float eliteSize);
+    void setMutationThreshhold(float mutationThreshhold);
     float calculateFuctionValue(Circle * circle);
     
     Circle meanCircle();

@@ -32,7 +32,8 @@ class Simulation{
 
 public:
     Simulation(unsigned int windowSizeX, unsigned int windowSizeY);
-    Simulation(unsigned int windowSizeX, unsigned int windowSizeY, unsigned int populationSize, unsigned int numberOfIterations);
+    Simulation(unsigned int windowSizeX, unsigned int windowSizeY, unsigned int populationSize, float mutationStrength, 
+                unsigned int numberOfIterations, float maximumRadius, float minX, float maxX, float minY, float maxY);
     Gui * getGui();
     void iteration();
     void run();
@@ -48,6 +49,8 @@ public:
     void saveResults(circle_types circleType, std::string filename);
     void setPathForWriterModule(std::string path);
     void setDelimiterForWriterModule(std::string delimiter);
+    void setEliteSizeForEvolutionModule(float eliteSize);
+    void setMutationThreshholdForEvolutionModule(float mutationThreshhold);
     inline void setPictures(bool toPictures){ pictures = toPictures; };
     
 };
