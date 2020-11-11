@@ -9,7 +9,7 @@ Simulation::Simulation(unsigned int windowSizeX, unsigned int windowSizeY) : gui
 };
 
 Simulation::Simulation(unsigned int windowSizeX, unsigned int windowSizeY,
-                       unsigned int populationSize,float mutationStrength, 
+                       unsigned int populationSize, float mutationStrength, 
                        unsigned int numberOfIterations,
                        float maximumRadius, float minX, float maxX, float minY, float maxY) 
                        : gui_(windowSizeX, windowSizeY),
@@ -198,7 +198,7 @@ void Simulation::iteration()
 {
     std::vector<Circle> children;
 
-    for (int i = 0; i < 300; ++i)
+    for (int i = 0; i < populationSize_; ++i)
     {
         children.emplace_back(evolutionModule_.reproduction());
     }

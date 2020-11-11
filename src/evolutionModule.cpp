@@ -26,15 +26,23 @@ void EvolutionModule::init(float minX, float maxX, float minY, float maxY,float 
 
 void EvolutionModule::mutation(float mutationLowerBound, float mutationUpperBound)
 {
+    // std::cout<<mutationThreshhold_<< " "<< mutationStrength_<<std::endl;
     RandomNumberGenerator<float> gen(mutationLowerBound, mutationUpperBound);
+    RandomNumberGenerator<float> genAngle(0.0f, 360.f);
     for (Circle &circle : *circles_)
     {
         if (gen.get() < mutationThreshhold_)
             circle.setRadius(gen.getNormal(circle.getRadius(), circle.getRadius() * mutationStrength_));
-        if (gen.get() < mutationThreshhold_)
-            circle.setCenterX(gen.getNormal(circle.getCenterX(), windowWidth_ * mutationStrength_));
-        if (gen.get() < mutationThreshhold_)
-            circle.setCenterY(gen.getNormal(circle.getCenterY(), windowHeight_ * mutationStrength_));
+        if (gen.get() < mutationThreshhold_){
+            float angle = genAngle.get(0.0, 2*pi);
+            float distance = gen.getNormal(0.0f, windowWidth_ * mutationStrength_);
+            circle.setCenterX(circle.getCenterX() + distance * cos(angle));
+            circle.setCenterY(circle.getCenterY() + distance * sin(angle));
+        }
+        // if (gen.get() < mutationThreshhold_)
+        //     circle.setCenterX(gen.getNormal(circle.getCenterX(), windowWidth_ * mutationStrength_));
+        // if (gen.get() < mutationThreshhold_)
+        //     circle.setCenterY(gen.getNormal(circle.getCenterY(), windowHeight_ * mutationStrength_));
     }
 }
 Circle EvolutionModule::reproduction(bool test)
@@ -70,7 +78,8 @@ Circle EvolutionModule::reproductionTournament()
 
 void EvolutionModule::succession(std::vector<Circle> childrenPopulation)
 {
-    int eliteSize = std::floor(eliteSize * circles_->size());
+    int eliteSize = std::floor(eliteSize_ * circles_->size());
+    // std::cout<<"ELITA: "<<eliteSize<< " %: "<< eliteSize_<<std::endl;
     std::sort(childrenPopulation.begin(), childrenPopulation.end(), &comparator);
     std::sort(circles_->begin(), circles_->end(), &comparator);
     auto firstChild = childrenPopulation.begin();

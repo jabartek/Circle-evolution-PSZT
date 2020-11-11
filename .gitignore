@@ -4,3 +4,5 @@ build/
 .s*
 *.obj
 .vscode/
+*.mp4
+*.ps1

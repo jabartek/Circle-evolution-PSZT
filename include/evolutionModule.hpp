@@ -8,10 +8,7 @@
 #include <memory>
 #include <iostream>
 
-const float MUTATIONSTRENGTH = 0.2f;
-const float MUTATIONLOWERBOUND = 0.0f;
-const float MUTATIONUPPERBOUND = 1.0f;
-const float MUTATIONTHRESHHOLD = 0.35f;
+const float pi = 3.14159267f;
 
 class EvolutionModule
 {
@@ -32,6 +29,7 @@ class EvolutionModule
     float area(float x0, float x1, float h, float r);
     float area(float x0, float x1, float y0, float y1, float r);
     float area(float x0, float x1, float y0, float y1, float cx, float cy, float r);
+
 
 public:
     EvolutionModule(float windowWidth, float windowHeight);
