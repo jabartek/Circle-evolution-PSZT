@@ -2,9 +2,9 @@
 
 EvolutionModule::EvolutionModule(float windowWidth, float windowHeight) : windowWidth_(windowWidth), windowHeight_(windowHeight){};
 
-EvolutionModule::EvolutionModule(float windowWidth, float windowHeight, unsigned int populationStartSize, float mutationStrength) 
+EvolutionModule::EvolutionModule(float windowWidth, float windowHeight, unsigned int populationStartSize, float radiusMutationStrength, float positionMutationStrength) 
                 : windowWidth_(windowWidth), windowHeight_(windowHeight), populationStartSize_(populationStartSize),
-                mutationStrength_(mutationStrength){};
+                radiusMutationStrength_(radiusMutationStrength), positionMutationStrength_(positionMutationStrength){};
 
 void EvolutionModule::setVectors(std::shared_ptr<std::vector<Circle>> circles, std::shared_ptr<std::vector<Rectangle>> rectangles)
 {
@@ -29,10 +29,10 @@ Circle EvolutionModule::mutation(float mutationLowerBound, float mutationUpperBo
     RandomNumberGenerator<float> gen(mutationLowerBound, mutationUpperBound);
     RandomNumberGenerator<float> genAngle(0.0f, 2*pi);
         if (gen.get() < mutationThreshhold_)
-            circle.setRadius(gen.getNormal(circle.getRadius(), circle.getRadius() * mutationStrength_));
+            circle.setRadius(gen.getNormal(circle.getRadius(), circle.getRadius() * radiusMutationStrength_));
         else {
             float angle = genAngle.get();
-            float distance = gen.getNormal(0.0f, windowWidth_ * mutationStrength_);
+            float distance = gen.getNormal(0.0f, windowWidth_ * positionMutationStrength_);
             circle.setCenterX(circle.getCenterX() + distance * cos(angle));
             circle.setCenterY(circle.getCenterY() + distance * sin(angle));
         }

@@ -32,7 +32,8 @@ class Simulation{
 
 public:
     Simulation(unsigned int windowSizeX, unsigned int windowSizeY);
-    Simulation(unsigned int windowSizeX, unsigned int windowSizeY, unsigned int populationSize, float mutationStrength, 
+    Simulation(unsigned int windowSizeX, unsigned int windowSizeY, unsigned int populationSize, float radiusMutationStrength, 
+                float positionMutationStrength,
                 unsigned int numberOfIterations, float maximumRadius, float minX, float maxX, float minY, float maxY);
     Gui * getGui();
     void iteration();

@@ -14,7 +14,8 @@ int main(int argc, char **argv)
     unsigned int windowHeight;
     unsigned int populationSize;
     unsigned int numberOfIterations;
-    float mutationStrength;
+    float radiusMutationStrength;
+    float positionMutationStrength;
     float mutationThreshold;
     float eliteSize;
     //SPAWNING CIRCLES PARAMETERS
@@ -59,7 +60,8 @@ int main(int argc, char **argv)
         inputFile >> windowHeight;
         inputFile >> populationSize;
         inputFile >> numberOfIterations;
-        inputFile >> mutationStrength;
+        inputFile >> radiusMutationStrength;
+        inputFile >> positionMutationStrength;
         inputFile >> mutationThreshold;
         inputFile >> eliteSize;
         inputFile >> pathToFile;
@@ -100,8 +102,8 @@ int main(int argc, char **argv)
     //     toPictures = false;
     // }
 
-    Simulation sim(windowWidth, windowHeight, populationSize, mutationStrength, numberOfIterations,
-                   maximumRadius, minX, maxX, minY, maxY);
+    Simulation sim(windowWidth, windowHeight, populationSize, radiusMutationStrength, positionMutationStrength,
+                     numberOfIterations,maximumRadius, minX, maxX, minY, maxY);
     for (auto v : rectangles)
     {
         sim.addRectangle(v);

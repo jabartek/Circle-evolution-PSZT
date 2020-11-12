@@ -15,7 +15,8 @@ class EvolutionModule
     unsigned int populationStartSize_;
     float windowWidth_;
     float windowHeight_;
-    float mutationStrength_;
+    float radiusMutationStrength_;
+    float positionMutationStrength_;
     float eliteSize_;
     float mutationThreshhold_;
     std::shared_ptr<std::vector<Circle>> circles_;
@@ -33,7 +34,8 @@ class EvolutionModule
 
 public:
     EvolutionModule(float windowWidth, float windowHeight);
-    EvolutionModule(float windowWidth, float windowHeight, unsigned int populationStartSize, float mutationStrength);
+    EvolutionModule(float windowWidth, float windowHeight, unsigned int populationStartSize, float radiusMutationStrength,
+    float positionMutationStrength);
     void setWindowSize(float width, float height);
     void setVectors(std::shared_ptr<std::vector<Circle>> circles, std::shared_ptr<std::vector<Rectangle>> rectangles);
     void init(float minX, float maxX, float minY, float maxY, float maximumRadius);

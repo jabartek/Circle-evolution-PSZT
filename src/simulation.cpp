@@ -9,12 +9,12 @@ Simulation::Simulation(unsigned int windowSizeX, unsigned int windowSizeY) : gui
 };
 
 Simulation::Simulation(unsigned int windowSizeX, unsigned int windowSizeY,
-                       unsigned int populationSize, float mutationStrength, 
-                       unsigned int numberOfIterations,
+                       unsigned int populationSize, float radiusMutationStrength, 
+                       float positionMutationStrength,unsigned int numberOfIterations,
                        float maximumRadius, float minX, float maxX, float minY, float maxY) 
                        : gui_(windowSizeX, windowSizeY),
                         populationSize_(populationSize),
-                        evolutionModule_(windowSizeX, windowSizeY, populationSize,mutationStrength),
+                        evolutionModule_(windowSizeX, windowSizeY, populationSize,radiusMutationStrength,positionMutationStrength),
                         numberOfIterations_(numberOfIterations)
 
 {
