@@ -24,44 +24,25 @@ void EvolutionModule::init(float minX, float maxX, float minY, float maxY,float 
     }
 }
 
-void EvolutionModule::mutation(float mutationLowerBound, float mutationUpperBound)
+Circle EvolutionModule::mutation(float mutationLowerBound, float mutationUpperBound, Circle circle)
 {
-    // std::cout<<mutationThreshhold_<< " "<< mutationStrength_<<std::endl;
     RandomNumberGenerator<float> gen(mutationLowerBound, mutationUpperBound);
-    RandomNumberGenerator<float> genAngle(0.0f, 360.f);
-    for (Circle &circle : *circles_)
-    {
+    RandomNumberGenerator<float> genAngle(0.0f, 2*pi);
         if (gen.get() < mutationThreshhold_)
             circle.setRadius(gen.getNormal(circle.getRadius(), circle.getRadius() * mutationStrength_));
-        if (gen.get() < mutationThreshhold_){
-            float angle = genAngle.get(0.0, 2*pi);
+        else {
+            float angle = genAngle.get();
             float distance = gen.getNormal(0.0f, windowWidth_ * mutationStrength_);
             circle.setCenterX(circle.getCenterX() + distance * cos(angle));
             circle.setCenterY(circle.getCenterY() + distance * sin(angle));
         }
-        // if (gen.get() < mutationThreshhold_)
-        //     circle.setCenterX(gen.getNormal(circle.getCenterX(), windowWidth_ * mutationStrength_));
-        // if (gen.get() < mutationThreshhold_)
-        //     circle.setCenterY(gen.getNormal(circle.getCenterY(), windowHeight_ * mutationStrength_));
-    }
+        return circle;
 }
+
 Circle EvolutionModule::reproduction(bool test)
 {
-    Circle parent1 = reproductionTournament();
-    Circle parent2 = reproductionTournament();
-    if (test)
-    {
-        std::cout << "Parent1: " << parent1.getFunctionValue() << " " << parent1.getCenterX() << " " << parent1.getCenterY() << " " << parent1.getRadius() << std::endl;
-        std::cout << "Parent2: " << parent2.getFunctionValue() << " " << parent2.getCenterX() << " " << parent2.getCenterY() << " " << parent2.getRadius() << std::endl;
-    }
-    RandomNumberGenerator<int> gen(0, circles_->size() - 1, 0.5, 0.1);
-    float weightRadius = gen.getNormal();
-    float weightCentercX = gen.getNormal();
-    float weightCentercY = gen.getNormal();
-    float childRadius = parent1.getRadius() * weightRadius + parent2.getRadius() * (1 - weightRadius);
-    float childCenterX = parent1.getCenterX() * weightCentercX + parent2.getCenterX() * (1 - weightCentercX);
-    float childCenterY = parent1.getCenterY() * weightCentercY + parent2.getCenterY() * (1 - weightCentercY);
-    return Circle(childRadius, childCenterX, childCenterY);
+    Circle circle = reproductionTournament();
+    return mutation(0.0,1.0, circle);
 }
 
 Circle EvolutionModule::reproductionTournament()
@@ -79,11 +60,10 @@ Circle EvolutionModule::reproductionTournament()
 void EvolutionModule::succession(std::vector<Circle> childrenPopulation)
 {
     int eliteSize = std::floor(eliteSize_ * circles_->size());
-    // std::cout<<"ELITA: "<<eliteSize<< " %: "<< eliteSize_<<std::endl;
     std::sort(childrenPopulation.begin(), childrenPopulation.end(), &comparator);
     std::sort(circles_->begin(), circles_->end(), &comparator);
     auto firstChild = childrenPopulation.begin();
-    for (auto i = circles_->size() - 1; i > circles_->size() - (eliteSize + 1); i--)
+    for (auto i = circles_->size() - 1; i >= eliteSize; i--)
     {
         (*circles_)[i] = *(firstChild++);
     }

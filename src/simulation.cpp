@@ -204,7 +204,6 @@ void Simulation::iteration()
     }
 
     evolutionModule_.calculateFunctionValues(children);
-    evolutionModule_.mutation(0.0f, 1.0f);
     evolutionModule_.succession(children);
 }
 

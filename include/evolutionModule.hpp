@@ -37,7 +37,7 @@ public:
     void setWindowSize(float width, float height);
     void setVectors(std::shared_ptr<std::vector<Circle>> circles, std::shared_ptr<std::vector<Rectangle>> rectangles);
     void init(float minX, float maxX, float minY, float maxY, float maximumRadius);
-    void mutation(float mutationLowerBound, float mutationUpperBound);
+    Circle mutation(float mutationLowerBound, float mutationUpperBound, Circle circle);
     Circle reproduction(bool test = false);
     void succession(std::vector<Circle> childrenPopulation);
     void calculateFunctionValues();
