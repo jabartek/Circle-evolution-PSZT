@@ -4,7 +4,7 @@ env = Environment()
 if not test:
     env.Append(CPPPATH = ['#include'])
     env.Append(LINKFLAGS='/SUBSYSTEM:CONSOLE') 
-    env.Append(CXXFLAGS='/EHsc /MD /std:c++17')
+    env.Append(CXXFLAGS='/EHsc /MD /std:c++17 -O2')
     VariantDir('#/build', '#/src', duplicate=0)
     Repository([ '#/lib/SFML-2.5.1' ]) 
     resources=Glob('#/src/*.cpp')

@@ -78,30 +78,6 @@ int main(int argc, char **argv)
         return 0;
     }
 
-    // }
-    // else
-    // {
-    //     posX = 650;
-    //     posY = 650;
-    //     sizeX = 300;
-    //     sizeY = 300;
-    //     std::vector<Rectangle> rectangles;
-    //     rectangles.emplace_back(Rectangle(posX, posY, sizeX, sizeY));
-    //     windowWidth = 1000;
-    //     windowHeight = 1000;
-    //     populationSize = 100;
-    //     numberOfIterations = 300;
-    //     mutationStrength = 0.3;
-    //     mutationThreshold = 0.3;
-    //     eliteSize = 0.2;
-    //     maximumRadius = 100.0f;
-    //     minX = 0.0;
-    //     maxX = windowWidth;
-    //     minY = 0.0;
-    //     maxY = windowHeight;
-    //     toPictures = false;
-    // }
-
     Simulation sim(windowWidth, windowHeight, populationSize, radiusMutationStrength, positionMutationStrength,
                      numberOfIterations,maximumRadius, minX, maxX, minY, maxY);
     for (auto v : rectangles)

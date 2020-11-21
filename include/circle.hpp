@@ -1,7 +1,7 @@
 #ifndef CIRCLE_HPP
 #define CIRCLE_HPP
 
-static const float OFF_RECTANGLE_PENALTY = 2.0f;
+static const float OFF_RECTANGLE_PENALTY = 1.0f;
 
 class Circle
 {

@@ -7,3 +7,5 @@ build/
 *.mp4
 *.ps1
 img/*
+testZ*
+wykresy/
