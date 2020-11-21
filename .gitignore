@@ -8,3 +8,5 @@ build/
 *.ps1
 img/*
 *.o
+testZ*
+wykresy/
