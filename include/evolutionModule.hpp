@@ -7,6 +7,7 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+#include <algorithm>
 
 const float pi = 3.14159267f;
 

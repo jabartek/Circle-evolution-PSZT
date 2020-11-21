@@ -33,7 +33,7 @@ public:
         return distribution_(generator_);
     }
     Numeric get(Numeric min, Numeric max){
-        distributionType::param_type d2(min, max);
+        typename distributionType::param_type d2(min, max);
         distribution_.param(d2);
         return distribution_(generator_);
     }

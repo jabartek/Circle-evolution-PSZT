@@ -31,7 +31,7 @@ void Simulation::run()
         std::filesystem::create_directory("img/");
     }
 
-    for(int i = 0; i < numberOfIterations_ && gui_.isOpen(); i++){
+    for(unsigned int i = 0; i < numberOfIterations_ && gui_.isOpen(); i++){
         evolutionModule_.calculateFunctionValues();
 
         Circle meanCircle = evolutionModule_.meanCircle();
@@ -198,7 +198,7 @@ void Simulation::iteration()
 {
     std::vector<Circle> children;
 
-    for (int i = 0; i < populationSize_; ++i)
+    for (unsigned int i = 0; i < populationSize_; ++i)
     {
         children.emplace_back(evolutionModule_.reproduction());
     }

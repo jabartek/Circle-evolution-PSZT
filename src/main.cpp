@@ -43,7 +43,7 @@ int main(int argc, char **argv)
     {
         unsigned int rectangleNum;
         inputFile >> rectangleNum;
-        for (int i = 0; i < rectangleNum; i++)
+        for (unsigned int i = 0; i < rectangleNum; i++)
         {
             inputFile >> posX;
             inputFile >> posY;

@@ -15,7 +15,7 @@ void EvolutionModule::setVectors(std::shared_ptr<std::vector<Circle>> circles, s
 void EvolutionModule::init(float minX, float maxX, float minY, float maxY,float maximumRadius)
 {
     RandomNumberGenerator<float> gen(0.0f, maximumRadius);
-    for (int i = 0; i < populationStartSize_; i++)
+    for (unsigned int i = 0; i < populationStartSize_; i++)
     {
         float radius = gen.get(0.0f, maximumRadius);
         float centerX = gen.get(minX, maxX);
@@ -63,7 +63,7 @@ void EvolutionModule::succession(std::vector<Circle> childrenPopulation)
     std::sort(childrenPopulation.begin(), childrenPopulation.end(), &comparator);
     std::sort(circles_->begin(), circles_->end(), &comparator);
     auto firstChild = childrenPopulation.begin();
-    for (auto i = circles_->size() - 1; i >= eliteSize; i--)
+    for (int i = circles_->size() - 1; i >= eliteSize; i--)
     {
         (*circles_)[i] = *(firstChild++);
     }
