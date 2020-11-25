@@ -46,3 +46,6 @@ The program can only run with a config file provided. The specification for the 
 
 Newlines (apart from the final one) can be replaced with any whitespace characters. //'s are used as a comment in the specification, but aren't accepted by the program. 
 Sample configuration files, as used for the experiments, can be found in *data/*
+
+# Appendix
+You can see appendix for the project here: https://github.com/jabartek/Circle-evolution-PSZT-appenddix
